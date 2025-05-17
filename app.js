@@ -8,7 +8,7 @@ const adminRoutes    = require('./routes/adminRoutes');
 const marketerRoutes = require('./routes/marketerRoutes');
 const activityListRoutes = require('./routes/activityListRoutes');
 const mailRoutes = require('./routes/mailRoutes')
-
+const templateRoutes = require('./routes/templateRoutes')
 
 const app  = express();
 const PORT = process.env.PORT || 5000;
@@ -29,6 +29,7 @@ app.use('/admin',    adminRoutes);
 app.use('/marketer', marketerRoutes);
 app.use('/activity', activityListRoutes);
 app.use('/mail',mailRoutes)
+app.use('/template', templateRoutes)
 
 // ─── DB + SERVER START ───────────────────────────────────────────────────────
 mongoose

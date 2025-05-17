@@ -88,3 +88,22 @@ exports.getMailDescription = async (req, res) => {
     return res.status(500).json({ status:'error', message:'Server error.' });
   }
 };
+
+exports.getMailDescriptionList = async (req, res) => {
+  try {
+    const { activityId } = req.query;
+    if (!activityId) {
+      return res.status(400).json({ status: 'error', message: 'activityId is required.' });
+    }
+
+    const descriptions = await MailDescription.find({ activityId })
+      .sort({ createdAt: -1 }) // latest first
+      .select('descriptionId description createdAt updatedAt')
+      .lean();
+
+    return res.json({ status: 'success', data: descriptions });
+  } catch (err) {
+    console.error('Error fetching mail descriptions:', err);
+    return res.status(500).json({ status: 'error', message: 'Server error.' });
+  }
+};
